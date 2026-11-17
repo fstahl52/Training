@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Training">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#1f7a5a">
+<title>Trainingsjournal</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--text:#1d1d1b;--muted:#6b6a64;--line:#e2e0d8;--accent:#1f7a5a;--soft:#dff1e9;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--card:#212120;--text:#efede6;--muted:#9c9a92;--line:#34332f;--accent:#4cc596;--soft:#1e3b30;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161615;--card:#212120;--text:#efede6;--muted:#9c9a92;--line:#34332f;--accent:#4cc596;--soft:#1e3b30;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:14px 16px 10px;border-bottom:1px solid var(--line);z-index:5}
+h1{margin:0 0 6px;font-size:22px}
+h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.count{font-weight:600;color:var(--accent)}
+.bar{height:8px;background:var(--line);border-radius:4px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+main{max-width:640px;margin:0 auto;padding:4px 16px 40px}
+.box,details.week{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.box{padding:12px 14px}
+.box ul{margin:0;padding-left:18px}.box li{margin:3px 0;font-size:15px}
+.goal{display:flex;gap:10px;align-items:flex-start;padding:5px 0;font-size:15px}
+.goal input{width:20px;height:20px;accent-color:var(--accent);flex:none;margin-top:2px}
+summary{padding:14px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary span{color:var(--muted);font-weight:400;font-size:14px}
+.note{padding:0 14px 10px;color:var(--muted);font-size:13px}
+.day{border-top:1px solid var(--line);padding:12px 14px}
+.day.done{background:var(--soft)}
+.top{display:flex;gap:12px;align-items:flex-start}
+.top input{width:24px;height:24px;accent-color:var(--accent);flex:none;margin-top:2px}
+.title{font-weight:600}.ex{color:var(--muted);font-size:13px;margin-top:2px}
+label{display:block;font-size:12px;color:var(--muted);margin:10px 0 3px}
+input[type=text],textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit;font-size:15px}
+textarea{min-height:56px;resize:vertical}
+.wk{padding:12px 14px;border-top:1px solid var(--line);background:var(--bg)}
+.row{display:flex;gap:10px;align-items:center;margin-top:8px;font-size:15px}
+.row input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent)}
+.row input[type=text]{width:120px}
+button{padding:10px 14px;border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:8px;font:inherit;font-size:14px}
+.exr{display:flex;gap:8px;align-items:center;margin-top:8px;font-size:14px}.exr b{flex:1;font-weight:500}.exr small{color:var(--muted);display:block;font-weight:400}.exr input{width:92px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Trainingsjournal</h1>
+  <div>Erledigt: <span class="count" id="count"></span></div>
+  <div class="bar"><i id="bar"></i></div>
+</header>
+<main>
+  <h2>Fitnessplan · 8 Wochen</h2>
+  <div class="box"><div class="goal" style="padding-top:0">Ziele: Fettabbau, Muskelaufbau, Lebergesundheit, bessere Blutfettwerte, Rückenstabilität</div><div class="goal" style="padding-bottom:0">Woche: Mo Rücken & Bizeps · Di Cardio & Core · Mi Mobilität · Do Beine & Schultern · Fr Cardio · Sa Brust, Trizeps & Core · So Regeneration</div></div>
+  <h2>Acht-Wochen-Ziele</h2>
+  <div class="box">
+    <div class="goal" style="padding-top:0">Startgewicht: 110 kg · erstes Zwischenziel: 104,5 kg</div>
+    <div class="goal">3 Krafttrainingseinheiten pro Woche</div>
+    <div class="goal">Mittelfristig 150 Minuten moderate Ausdauer pro Woche</div>
+    <div class="goal">Alkohol während der Abklärung vollständig pausieren (Haken pro Woche unten)</div>
+    <div class="goal">Meal Prep konsequent beibehalten (jeden Sonntag)</div>
+    <label class="goal" style="padding-bottom:0"><input type="checkbox" data-g="leber"> Leberwerte ärztlich nach Plan kontrollieren lassen</label>
+    <div class="goal" style="padding-bottom:0">Aktuelles Gewicht: <input type="text" id="curw" style="width:100px" placeholder="kg"> <span id="togo" style="color:var(--muted)"></span></div>
+  </div>
+
+  <h2>Trainingsregeln</h2>
+  <div class="box"><ul>
+    <li>5 bis 10 Minuten aufwärmen, vor Grundübungen leichte Aufwärmsätze</li>
+    <li>60 bis 120 Sekunden Satzpause</li>
+    <li>Gewichte kontrolliert bewegen</li>
+    <li>2 bis 3 Wiederholungen Reserve lassen</li>
+    <li>Gewicht erst erhöhen, wenn die Technik sauber bleibt</li>
+    <li>Erste zwei Wochen mit reduziertem Trainingsvolumen starten</li>
+    <li>Kein Training bis zum Muskelversagen</li>
+  </ul></div>
+
+  <h2>Gesundheitlicher Hinweis</h2>
+  <div class="box" style="font-size:15px">Wegen der aktuell erhöhten Leberwerte vor Beginn der intensiveren Belastung ärztlich Rücksprache halten. Bis zur Abklärung keine maximalen Belastungen oder schweren Kreuzhebeeinheiten. Moderate Bewegung bei Beschwerdefreiheit ist meist sinnvoll. Vor einer Kontrollblutabnahme mit der Praxis abstimmen, ob einige Tage Trainingspause sinnvoll sind.</div>
+
+  <h2>Wochenplan</h2>
+  <div id="weeks"></div>
+  <button id="reset">Alles zurücksetzen</button>
+</main>
+<script>
+var PLAN=[
+ {t:"Montag · Rücken & Bizeps",u:"kg",x:[["Latzug breit","3 × 10–12"],["Kabelrudern","3 × 10–12"],["Rumänisches Kreuzheben","2 × 10"],["Reverse Butterfly","3 × 12–15"],["Rückenstrecker","2 × 12"],["SZ-Curls","3 × 10–12"],["Klimmzüge","2 × saubere Wdh."]]},
+ {t:"Dienstag · Cardio & Core",u:"Notiz",x:[["#Ausdauer"],["Fahrrad","20 Minuten"],["Laufband","15 Minuten"],["#Core"],["Plank","3 × 30 Sek."],["Seitstütz","2 × 30 Sek. je Seite"],["Dead Bug","2 × 10 je Seite"]]},
+ {t:"Mittwoch · Mobilität",u:"Notiz",n:"20 bis 30 Minuten Mobilität plus etwa 20 Minuten spazieren",x:[["Hüftbeuger dehnen",""],["Beinrückseite dehnen",""],["Brustmuskulatur dehnen",""],["Latissimus dehnen",""],["Brustwirbelsäule mobilisieren",""],["Schulterbeweglichkeit trainieren",""],["Spaziergang","ca. 20 Minuten"]]},
+ {t:"Donnerstag · Beine & Schultern",u:"kg",x:[["Kniebeugen","3 × 8–10"],["Beinpresse","3 × 10–12"],["Beinbeuger","3 × 12"],["Ausfallschritte","2 × 10 je Bein"],["Wandsitzen","1 × 30–45 Sek."],["Schulterdrücken","3 × 10"],["Seitheben","2 × 12–15"]]},
+ {t:"Freitag · Cardio",u:"Notiz",n:"Moderate Intensität: Du solltest noch in ganzen Sätzen sprechen können.",x:[["Laufband","20 Minuten"],["Fahrrad","20 Minuten"],["Ruderergometer","10 Minuten"]]},
+ {t:"Samstag · Brust, Trizeps & Core",u:"kg",x:[["Bankdrücken","3 × 8–12"],["Schrägbankdrücken","3 × 10"],["Butterfly am Kabelzug","2 × 12"],["Trizepsdrücken am Kabel","3 × 12"],["Einarmiges Trizepsdrücken","2 × 12"],["Beinheben","2 × 12"],["Plank","2 × 45 Sek."]]},
+ {t:"Sonntag · Regeneration",u:"Notiz",x:[["Spaziergang oder lockeres Radfahren","30–45 Min."],["Leichtes Dehnen","optional"],["Meal Prep","für die kommende Woche"]]}
+], WEEKS=8, PER=PLAN.length, TOTAL=WEEKS*PER, KEY="trainingsjournal-v4", st={};
+try{st=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){st={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+function g(k,d){return st[k]||(st[k]=d)}
+function done(i){return st["d"+i]&&st["d"+i].d}
+function update(){
+  var n=0;for(var i=0;i<TOTAL;i++)if(done(i))n++;
+  document.getElementById("count").textContent=n+"/"+TOTAL;
+  document.getElementById("bar").style.width=(n/TOTAL*100)+"%";
+  for(var w=0;w<WEEKS;w++){var c=0;for(var k=0;k<PER;k++)if(done(w*PER+k))c++;
+    document.getElementById("wc"+w).textContent=c+"/"+PER}
+  var cw=parseFloat(String(st.cur||"").replace(",","."));
+  document.getElementById("togo").textContent=isNaN(cw)?"":(cw<=104.5?"Zwischenziel erreicht":"noch "+(cw-104.5).toFixed(1).replace(".",",")+" kg bis 104,5");
+}
+var root=document.getElementById("weeks");
+for(var w=0;w<WEEKS;w++){
+  var d=document.createElement("details");d.className="week";if(w===0)d.open=true;
+  var h='<summary>Woche '+(w+1)+'<span id="wc'+w+'"></span></summary>';
+  if(w<2)h+='<div class="note">Reduziertes Volumen: weniger Sätze als später.</div>';
+  PLAN.forEach(function(p,k){
+    var i=w*PER+k;g("d"+i,{d:false,w:"",n:""});
+    var s=st["d"+i],sun=k===PER-1;
+    h+='<div class="day'+(s.d?' done':'')+'" id="day'+i+'"><div class="top"><input type="checkbox" data-i="'+i+'"'+(s.d?' checked':'')+'><div><div class="title">'+p.t+'</div>'+(p.n?'<div class="ex">'+p.n+'</div>':'')+'</div></div>'
+     +p.x.map(function(e,j){return e[0][0]==='#'?'<label>'+e[0].slice(1)+'</label>':'<div class="exr"><b>'+e[0]+(e[1]?'<small>'+e[1]+'</small>':'')+'</b><input type="text" data-x="'+i+'_'+j+'" placeholder="'+p.u+'"></div>'}).join('')
+     +'<label>Notizen</label><textarea data-n="'+i+'" placeholder="Wie lief es?"></textarea></div>';
+  });
+  h+='<div class="wk"><div class="row">Gewicht<input type="text" data-k="kg'+w+'" placeholder="kg"></div>'
+   +'<label class="row"><input type="checkbox" data-a="'+w+'"> Woche alkoholfrei</label></div>';
+  d.innerHTML=h;root.appendChild(d);
+}
+root.querySelectorAll("[data-w]").forEach(function(el){el.value=st["d"+el.dataset.w].w;el.oninput=function(){st["d"+el.dataset.w].w=el.value;save()}});
+root.querySelectorAll("[data-n]").forEach(function(el){el.value=st["d"+el.dataset.n].n;el.oninput=function(){st["d"+el.dataset.n].n=el.value;save()}});
+root.querySelectorAll("[data-x]").forEach(function(el){var k="x"+el.dataset.x;el.value=st[k]||"";el.oninput=function(){st[k]=el.value;save()}});
+root.querySelectorAll("[data-k]").forEach(function(el){el.value=st[el.dataset.k]||"";el.oninput=function(){st[el.dataset.k]=el.value;save()}});
+root.querySelectorAll("[data-a]").forEach(function(el){el.checked=!!st["a"+el.dataset.a];el.onchange=function(){st["a"+el.dataset.a]=el.checked;save()}});
+root.querySelectorAll("[data-i]").forEach(function(el){el.onchange=function(){var i=el.dataset.i;st["d"+i].d=el.checked;document.getElementById("day"+i).classList.toggle("done",el.checked);save();update()}});
+var lv=document.querySelector("[data-g=leber]");lv.checked=!!st.leber;lv.onchange=function(){st.leber=lv.checked;save()};
+var cur=document.getElementById("curw");cur.value=st.cur||"";cur.oninput=function(){st.cur=cur.value;save();update()};
+document.getElementById("reset").onclick=function(){if(confirm("Wirklich alles zurücksetzen?")){st={};save();location.reload()}};
+update();
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+</script>
+</body>
+</html>
